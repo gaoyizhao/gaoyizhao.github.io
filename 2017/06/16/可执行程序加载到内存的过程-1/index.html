@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="可执行程序加载到内存的过程在Linux中，程序的加载，涉及到两个工具，linker和loader。Linker主要涉及动态链接库的使用，Loader主要涉及软件加载。 1、exec执行一个程序。 2、elf是现在非常流行的可执行文件格式，其为程序运行规划了两个段，一个段是可执行的代码段，它是只读，可执行；另一个是数据段，它是可读写，不能执行。 3、Loader会启动，通过mmap()系统调用，将代">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/05/26/hello-world/index.html">
+<meta property="og:title" content="可执行程序加载到内存的过程">
+<meta property="og:url" content="http://yoursite.com/2017/06/16/可执行程序加载到内存的过程-1/index.html">
 <meta property="og:site_name" content="Gao Yizhao&#39;s blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-05-26T09:36:20.231Z">
+<meta property="og:description" content="可执行程序加载到内存的过程在Linux中，程序的加载，涉及到两个工具，linker和loader。Linker主要涉及动态链接库的使用，Loader主要涉及软件加载。 1、exec执行一个程序。 2、elf是现在非常流行的可执行文件格式，其为程序运行规划了两个段，一个段是可执行的代码段，它是只读，可执行；另一个是数据段，它是可读写，不能执行。 3、Loader会启动，通过mmap()系统调用，将代">
+<meta property="og:updated_time" content="2017-06-16T13:31:44.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="可执行程序加载到内存的过程">
+<meta name="twitter:description" content="可执行程序加载到内存的过程在Linux中，程序的加载，涉及到两个工具，linker和loader。Linker主要涉及动态链接库的使用，Loader主要涉及软件加载。 1、exec执行一个程序。 2、elf是现在非常流行的可执行文件格式，其为程序运行规划了两个段，一个段是可执行的代码段，它是只读，可执行；另一个是数据段，它是可读写，不能执行。 3、Loader会启动，通过mmap()系统调用，将代">
 
 
 
@@ -127,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/05/26/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/16/可执行程序加载到内存的过程-1/"/>
 
 
 
 
 
-  <title>Hello World | Gao Yizhao's blog</title>
+  <title>可执行程序加载到内存的过程 | Gao Yizhao's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -273,7 +273,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/26/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/16/可执行程序加载到内存的过程-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -290,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World</h1>
+          <h1 class="post-title" itemprop="name headline">可执行程序加载到内存的过程</h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">Veröffentlicht am</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-26T17:36:20+08:00">
-                2017-05-26
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-16T21:30:49+08:00">
+                2017-06-16
               </time>
             
 
@@ -337,15 +337,19 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <h4 id="可执行程序加载到内存的过程"><a href="#可执行程序加载到内存的过程" class="headerlink" title="可执行程序加载到内存的过程"></a>可执行程序加载到内存的过程</h4><p>在Linux中，程序的加载，涉及到两个工具，linker和loader。Linker主要涉及动态链接库的使用，Loader主要涉及软件加载。</p>
+<p>1、exec执行一个程序。</p>
+<p>2、elf是现在非常流行的可执行文件格式，其为程序运行规划了两个段，一个段是可执行的代码段，它是只读，可执行；另一个是数据段，它是可读写，不能执行。</p>
+<p>3、Loader会启动，通过mmap()系统调用，将代码段数据段映射到内存，即为其分配了虚拟内存，这时候不占用物理内存；只有当程序执行到相应的地方，内核才为其分配物理内存。</p>
+<p>4、Loader会去查找该程序依赖的链接库，首先该链接库是否被映射进内存中，未映射，则使用mmap，将代码段数据段映射到内存中；否则只是将其加入进程的地址空间。这样和glibc等库的内存地址空间完全一样。</p>
+<blockquote>
+<p>glibc是gnu发布的libc库，即c运行库。是linux系统中最底层的api，几乎其它任何运行库都会依赖于glibc。glibc除了封装linux操作系统所提供的系统服务外，它本身也提供了许多其它一些必要功能服务的实现。由于glibc囊括了几乎所有的UNIX通行的标准，可以想见其内容包罗万有。而就像其他的UNIX系统一样，其内含的档案群分散于系统的树状目录结构中，像一个支架一般撑起整个作业系统。在GNU/Linux系统中，其C函式库发展史点出了GNU/Linux演进的几个重要里程碑。</p>
+</blockquote>
+<p>因此，一个2M的程序，执行时，并不意味为其分配2M的物理内存，这与其运行的代码量，与其所依赖的动态链接库有关。</p>
+<p>运行过程中链接动态链接库 与 编译过程中链接动态库 区别</p>
+<p>调用动态链接库有两种方法：<br>一种是编译的时候，指明所依赖的动态链接库，这样loader可以在程序启动的时候，将所有的动态链接库映射到内存中；<br>一种是在运行过程中，通过dlopen和dlfree的方式加载动态链接库，动态将动态链接库加载到内存。</p>
+<p>这两种方式，从编程角度讲，第一种最方便，效率上差别不大，但在内存使用上有差别。</p>
+<p>第一种方式，一个库的代码，只要运行过一次，便会占用物理内存，之后即使再也不使用，也会占用物理内存（相当于扩大程序代码段），直到进程终止；<br>第二种方式，库代码占用的内存，可以通过dlfree的方式，释放掉，返回给物理内存。适用于偶尔而调用各种库的进程。</p>
 
       
     </div>
@@ -382,15 +386,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/05/26/内联函数/" rel="next" title="内联函数">
+                <i class="fa fa-chevron-left"></i> 内联函数
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/05/26/内联函数/" rel="prev" title="内联函数">
-                内联函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -510,7 +514,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#可执行程序加载到内存的过程"><span class="nav-number">1.</span> <span class="nav-text">可执行程序加载到内存的过程</span></a></li></ol></div>
             
 
           </div>
