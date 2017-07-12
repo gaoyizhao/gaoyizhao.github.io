@@ -90,16 +90,16 @@
 
 
 
-<meta name="description" content="C++的单例模式与线程安全单例模式（懒汉/饿汉）1.教科书里的单例模式一个简单单例模式的实现：构造函数声明为private或者protect防止被外部函数实例化，内部保存一个private static的类指针保存唯一的实例，实例的动作由一个public的类方法代劳，该方法也返回单例类唯一的实例。上代码：class singleton { private:     singleton() {}">
+<meta name="description" content="C++的单例模式与线程安全单例模式（懒汉/饿汉）1.教科书里的单例模式一个简单单例模式的实现：构造函数声明为private或者protect防止被外部函数实例化，内部保存一个private static的类指针保存唯一的实例，实例的动作由一个public的类方法代劳，该方法也返回单例类唯一的实例。 上代码：1234567891011121314151617class singleton&amp;#123;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单例模式实现">
 <meta property="og:url" content="http://yoursite.com/2017/07/01/单例模式实现/index.html">
 <meta property="og:site_name" content="Gao Yizhao&#39;s blog">
-<meta property="og:description" content="C++的单例模式与线程安全单例模式（懒汉/饿汉）1.教科书里的单例模式一个简单单例模式的实现：构造函数声明为private或者protect防止被外部函数实例化，内部保存一个private static的类指针保存唯一的实例，实例的动作由一个public的类方法代劳，该方法也返回单例类唯一的实例。上代码：class singleton { private:     singleton() {}">
-<meta property="og:updated_time" content="2017-07-01T08:12:19.448Z">
+<meta property="og:description" content="C++的单例模式与线程安全单例模式（懒汉/饿汉）1.教科书里的单例模式一个简单单例模式的实现：构造函数声明为private或者protect防止被外部函数实例化，内部保存一个private static的类指针保存唯一的实例，实例的动作由一个public的类方法代劳，该方法也返回单例类唯一的实例。 上代码：1234567891011121314151617class singleton&amp;#123;">
+<meta property="og:updated_time" content="2017-07-12T03:22:44.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单例模式实现">
-<meta name="twitter:description" content="C++的单例模式与线程安全单例模式（懒汉/饿汉）1.教科书里的单例模式一个简单单例模式的实现：构造函数声明为private或者protect防止被外部函数实例化，内部保存一个private static的类指针保存唯一的实例，实例的动作由一个public的类方法代劳，该方法也返回单例类唯一的实例。上代码：class singleton { private:     singleton() {}">
+<meta name="twitter:description" content="C++的单例模式与线程安全单例模式（懒汉/饿汉）1.教科书里的单例模式一个简单单例模式的实现：构造函数声明为private或者protect防止被外部函数实例化，内部保存一个private static的类指针保存唯一的实例，实例的动作由一个public的类方法代劳，该方法也返回单例类唯一的实例。 上代码：1234567891011121314151617class singleton&amp;#123;">
 
 
 
@@ -337,89 +337,18 @@
       
 
       
-        <h5 id="C-的单例模式与线程安全单例模式（懒汉-饿汉）"><a href="#C-的单例模式与线程安全单例模式（懒汉-饿汉）" class="headerlink" title="C++的单例模式与线程安全单例模式（懒汉/饿汉）"></a>C++的单例模式与线程安全单例模式（懒汉/饿汉）</h5><h6 id="1-教科书里的单例模式"><a href="#1-教科书里的单例模式" class="headerlink" title="1.教科书里的单例模式"></a>1.教科书里的单例模式</h6><p>一个简单单例模式的实现：构造函数声明为private或者protect防止被外部函数<br>实例化，内部保存一个private static的类指针保存唯一的实例，实例的动作由一个<br>public的类方法代劳，该方法也返回单例类唯一的实例。<br>上代码：<br><code>class singleton
-{
-private:
-    singleton() {}
-    static singleton* p;
-public:
-    static singleton* instance();
-};
-singleton* singleton::p = NULL;
-sinaleton* singleton::instance()
-{
-    if(p == NULL)
-    {
-        p = new singleton();
-    }
-    return p;
-}</code><br> 这是一个很棒的实现，简单易懂。但这个是线程不安全的，当两个线程同时首次调用<br> instance方法且同时检测到p是NULL值，则两个线程会同时构造一个实例给p…</p>
-<h6 id="2-懒汉与饿汉"><a href="#2-懒汉与饿汉" class="headerlink" title="2.懒汉与饿汉"></a>2.懒汉与饿汉</h6><p>单例大约有两种实现方法：懒汉与饿汉。<br>    懒汉：顾名思义，不到万不得已，不会去实例化类，也就是第一次用到类实例的时候<br>    才会去实例化，上边的经典方法为懒汉实现；<br>    饿汉：饿了肯定要饥不择食。所以在单例类定义的时候就进行实例化。</p>
+        <h5 id="C-的单例模式与线程安全单例模式（懒汉-饿汉）"><a href="#C-的单例模式与线程安全单例模式（懒汉-饿汉）" class="headerlink" title="C++的单例模式与线程安全单例模式（懒汉/饿汉）"></a>C++的单例模式与线程安全单例模式（懒汉/饿汉）</h5><h6 id="1-教科书里的单例模式"><a href="#1-教科书里的单例模式" class="headerlink" title="1.教科书里的单例模式"></a>1.教科书里的单例模式</h6><p>一个简单单例模式的实现：构造函数声明为private或者protect防止被外部函数实例化，内部保存一个private static的类指针保存唯一的实例，实例的动作由一个public的类方法代劳，该方法也返回单例类唯一的实例。</p>
+<p>上代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	singleton() &#123;&#125;</div><div class="line">	<span class="keyword">static</span> singleton* p;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="function"><span class="keyword">static</span> singleton* <span class="title">instance</span><span class="params">()</span></span>;</div><div class="line">&#125;;</div><div class="line">singleton* singleton::p = <span class="literal">NULL</span>;</div><div class="line">sinaleton* singleton::instance()</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span>(p == <span class="literal">NULL</span>)</div><div class="line">	&#123;</div><div class="line">		p = <span class="keyword">new</span> singleton();</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> p;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p> 这是一个很棒的实现，简单易懂。但这个是线程不安全的，当两个线程同时首次调用 instance方法且同时检测到p是NULL值，则两个线程会同时构造一个实例给p…</p>
+<h6 id="2-懒汉与饿汉"><a href="#2-懒汉与饿汉" class="headerlink" title="2.懒汉与饿汉"></a>2.懒汉与饿汉</h6><p>单例大约有两种实现方法：懒汉与饿汉。<br>    懒汉：顾名思义，不到万不得已，不会去实例化类，也就是第一次用到类实例的时候才会去实例化，上边的经典方法为懒汉实现；<br>    饿汉：饿了肯定要饥不择食。所以在单例类定义的时候就进行实例化。</p>
 <blockquote>
 <p>特点与选择：<br>    ①由于要进行线程同步，在访问量比较大，或者可能访问的线程比较多时，采用饿汉实现，可以实现更好的性能。只是以空间换时间。<br>    ②在访问量比较小时，采用懒汉实现。这是以时间换取空间。</p>
 </blockquote>
-<h6 id="3-线程安全的懒汉实现"><a href="#3-线程安全的懒汉实现" class="headerlink" title="3.线程安全的懒汉实现"></a>3.线程安全的懒汉实现</h6><p>加锁<br>    方法一：加锁的经典懒汉实现<br>    <code>class singleton
-    {
-    private:
-        singleton()
-        {
-            pthread_mutex_init(&amp;mutex);
-        }
-        static singleton* p;
-    public:
-        static pthread_mutex_t mutex;
-        static singleton* initance();
-    };
-    pthread_mutex_t singleton::mutex;
-    singleton* singleton::p = NULL;
-    singleton* singleton::initance()
-    {
-        if(p == NULL)
-        {
-            pthread_mutex_lock(&amp;mutex);
-            if(p == NULL)
-            {
-                p = new singleton();
-            }
-            pthread_mutex_unlock(&amp;mutex);
-        }
-        return p;
-    }</code></p>
-<p>方法二：内部静态变量的懒汉实现<br>        此方法也很容易实现，在instance函数里定义一个静态的实例，也可以保证拥有<br>    唯一的实例，在返回时只需要返回其指针就可以了。</p>
-<p><code>class singleton
-    {
-    private:
-        singleton()
-        {
-            pthread_mutex_init(&amp;mutex);
-        }
-    public:
-        static pthread_mutex_t mutex;
-        static singleton* initance();
-        int a;
-    };
-    pthread_mutex_t singleton::mutex;
-    singleton* singleton::initance()
-    {
-        pthread_mutex_lock(&amp;mutex);
-        static singleton obj;
-        pthread_mutex_unlock(&amp;mutex);
-        return &amp;obj;
-    }</code></p>
+<h6 id="3-线程安全的懒汉实现"><a href="#3-线程安全的懒汉实现" class="headerlink" title="3.线程安全的懒汉实现"></a>3.线程安全的懒汉实现</h6><p>加锁<br>    方法一：加锁的经典懒汉实现<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	singleton()</div><div class="line">	&#123;</div><div class="line">		pthread_mutex_init(&amp;mutex);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">static</span> singleton *p;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">	<span class="keyword">static</span> <span class="keyword">pthread_mutex_t</span> mutex;</div><div class="line">	<span class="function"><span class="keyword">static</span> singleton* <span class="title">initance</span><span class="params">()</span></span>;</div><div class="line">&#125;;</div><div class="line"><span class="keyword">pthread_mutex_t</span> singleton::mutex;</div><div class="line">singleton* singleton::p = <span class="literal">NULL</span>;</div><div class="line">singleton* singleton::initance()</div><div class="line">&#123;</div><div class="line">	<span class="keyword">if</span>( p == <span class="literal">NULL</span>)</div><div class="line">	&#123;</div><div class="line">		pthread_mutex_lock(&amp;mutex);</div><div class="line">		<span class="keyword">if</span>(p == <span class="literal">NULL</span>)</div><div class="line">		&#123;</div><div class="line">			p = <span class="keyword">new</span> singleton();</div><div class="line">		&#125;	</div><div class="line">	pthread_mutex_unlock(&amp;mutex);					</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> p;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>方法二：内部静态变量的懒汉实现<br>        此方法也很容易实现，在instance函数里定义一个静态的实例，也可以保证拥有唯一的实例，在返回时只需要返回其指针就可以了。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">singleton</span></span></div><div class="line">&#123;</div><div class="line"><span class="keyword">private</span>:</div><div class="line">	singleton()</div><div class="line">	&#123;</div><div class="line">		pthread_mutex_init(&amp;mutex);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">public</span>:</div><div class="line">		<span class="keyword">static</span> <span class="keyword">pthread_mutex_t</span> mutex;</div><div class="line">		<span class="function"><span class="keyword">static</span> singleton* <span class="title">initance</span><span class="params">()</span></span>;</div><div class="line">		<span class="keyword">int</span> a;</div><div class="line">	&#125;;</div><div class="line">	<span class="keyword">pthread_mutex_t</span> singleton::mutex;</div><div class="line">	singleton* singleton::initance()</div><div class="line">	&#123;</div><div class="line">		pthread_mutex_lock(&amp;mutex);</div><div class="line">		<span class="keyword">static</span> singleton obj;</div><div class="line">		pthread_mutex_unlock(&amp;mutex);</div><div class="line">		<span class="keyword">return</span> &amp;obj;</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
 <h6 id="4-饿汉实现"><a href="#4-饿汉实现" class="headerlink" title="4.饿汉实现"></a>4.饿汉实现</h6><p>为什么不讲线程安全饿汉实现？因为饿汉实现本来就是线程安全的，不用加锁。</p>
-<p><code>class singleton
-    {
-    private:
-        sinaleton(){}
-        static singleton* p;
-    public:
-        static singleton* initance();
-    };
-    singleton* singleton::p = new singleton;
-    singleton* singleton::initance()
-    {
-        retutn p;
-    }</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class singleton</div><div class="line">&#123;</div><div class="line">private:</div><div class="line">	sinaleton()&#123;&#125;</div><div class="line">	static singleton* p;</div><div class="line">public:</div><div class="line">	static singleton* initance();</div><div class="line">	&#125;;</div><div class="line">singleton* singleton::p = new singleton;</div><div class="line">singleton* singleton::initance()</div><div class="line">&#123;</div><div class="line">	retutn p;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>弄明白了这几种单例模式实现，就很好了！</p>
 
       
