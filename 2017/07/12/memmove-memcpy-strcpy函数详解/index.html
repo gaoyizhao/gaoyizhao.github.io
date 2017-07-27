@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="memmove和memcpy的区别和strcpy实现1.memmove函数原型：void memmove(void dest,const void source,size_t count)返回值说明：返回指向dest的void 指针参数说明：dest,source分别为目标串和源串的首地址。count为要移动的字符的个数函数说明：memmove用于从source拷贝count个字符到dest,如果">
+<meta name="description" content="memmove和memcpy的区别和strcpy实现1.memmove函数原型：  void memmove(void dest,const void *source,size_t count)  返回值说明：返回指向dest的void *指针参数说明：dest,source分别为目标串和源串的首地址。count为要移动的字符的个数函数说明：memmove用于从source拷贝count个字符到d">
 <meta property="og:type" content="article">
 <meta property="og:title" content="memmove,memcpy,strcpy函数详解">
 <meta property="og:url" content="http://yoursite.com/2017/07/12/memmove-memcpy-strcpy函数详解/index.html">
 <meta property="og:site_name" content="Gao Yizhao&#39;s blog">
-<meta property="og:description" content="memmove和memcpy的区别和strcpy实现1.memmove函数原型：void memmove(void dest,const void source,size_t count)返回值说明：返回指向dest的void 指针参数说明：dest,source分别为目标串和源串的首地址。count为要移动的字符的个数函数说明：memmove用于从source拷贝count个字符到dest,如果">
+<meta property="og:description" content="memmove和memcpy的区别和strcpy实现1.memmove函数原型：  void memmove(void dest,const void *source,size_t count)  返回值说明：返回指向dest的void *指针参数说明：dest,source分别为目标串和源串的首地址。count为要移动的字符的个数函数说明：memmove用于从source拷贝count个字符到d">
 <meta property="og:image" content="http://yoursite.com/2017/07/12/memmove-memcpy-strcpy函数详解/memcpy.png">
-<meta property="og:updated_time" content="2017-07-12T02:39:09.664Z">
+<meta property="og:updated_time" content="2017-07-27T10:37:33.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="memmove,memcpy,strcpy函数详解">
-<meta name="twitter:description" content="memmove和memcpy的区别和strcpy实现1.memmove函数原型：void memmove(void dest,const void source,size_t count)返回值说明：返回指向dest的void 指针参数说明：dest,source分别为目标串和源串的首地址。count为要移动的字符的个数函数说明：memmove用于从source拷贝count个字符到dest,如果">
+<meta name="twitter:description" content="memmove和memcpy的区别和strcpy实现1.memmove函数原型：  void memmove(void dest,const void *source,size_t count)  返回值说明：返回指向dest的void *指针参数说明：dest,source分别为目标串和源串的首地址。count为要移动的字符的个数函数说明：memmove用于从source拷贝count个字符到d">
 <meta name="twitter:image" content="http://yoursite.com/2017/07/12/memmove-memcpy-strcpy函数详解/memcpy.png">
 
 
@@ -202,7 +202,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Accueil
           </a>
         </li>
       
@@ -222,7 +222,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            About
+            A propos
           </a>
         </li>
       
@@ -302,7 +302,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Posté le</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-12T10:33:35+08:00">
                 2017-07-12
@@ -339,8 +339,16 @@
       
 
       
-        <h5 id="memmove和memcpy的区别和strcpy实现"><a href="#memmove和memcpy的区别和strcpy实现" class="headerlink" title="memmove和memcpy的区别和strcpy实现"></a>memmove和memcpy的区别和strcpy实现</h5><p>1.memmove<br>函数原型：void <em>memmove(void </em>dest,const void <em>source,size_t count)<br>返回值说明：返回指向dest的void </em>指针<br>参数说明：dest,source分别为目标串和源串的首地址。count为要移动的字符的个数<br>函数说明：memmove用于从source拷贝count个字符到dest,如果目标区域和源区域有重叠的话,memmove能够保证在源串覆盖之前将重叠区域的字节拷贝到目标区域中。</p>
-<p>2.memcpy<br>函数原型： void <em>memcpy(void </em>dest,const void <em>source,size_t count)<br>返回值说明：返回指向dest的void </em>指针<br>函数说明：memcpy功能和memmove相同，但是memcpy中dest和source中的区域不能重叠，否则会出现未知错误结果。</p>
+        <h5 id="memmove和memcpy的区别和strcpy实现"><a href="#memmove和memcpy的区别和strcpy实现" class="headerlink" title="memmove和memcpy的区别和strcpy实现"></a>memmove和memcpy的区别和strcpy实现</h5><p>1.memmove<br>函数原型：</p>
+<blockquote>
+<p>void <em>memmove(void </em>dest,const void *source,size_t count)</p>
+</blockquote>
+<p>返回值说明：返回指向dest的void *指针<br>参数说明：dest,source分别为目标串和源串的首地址。count为要移动的字符的个数<br>函数说明：memmove用于从source拷贝count个字符到dest,如果目标区域和源区域有重叠的话,memmove能够保证在源串覆盖之前将重叠区域的字节拷贝到目标区域中。</p>
+<p>2.memcpy<br>函数原型： </p>
+<blockquote>
+<p>void <em>memcpy(void </em>dest,const void *source,size_t count)</p>
+</blockquote>
+<p>返回值说明：返回指向dest的void *指针<br>函数说明：memcpy功能和memmove相同，但是memcpy中dest和source中的区域不能重叠，否则会出现未知错误结果。</p>
 <p>3.两者区别</p>
 <p>函数memcpy()：从source指向的区域向dest指向的区域复制count个字符，如果两组数重叠，不定义该函数的行为。<br>函数memmove()：两区域重叠，复制可以正确进行。</p>
 <p>memcpy函数假设要复制的内存区域不存在重叠，若能保证进行复制操作的内存区域没有任何重叠，可以直接用memcpy;<br>memmove函数绝对保证复制正确性，即使内存区域重叠。<br>但是memcpy效率比memmove高一些。</p>
@@ -451,10 +459,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            Table Des Matières
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            Ensemble
           </li>
         </ul>
       
@@ -475,7 +483,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives">
                 <span class="site-state-item-count">6</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-name">articles</span>
               </a>
             </div>
           
@@ -558,7 +566,7 @@
 </div>
 
 <div class="theme-info">
-  Theme -
+  Thème -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
