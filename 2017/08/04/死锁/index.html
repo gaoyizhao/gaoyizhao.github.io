@@ -1,0 +1,704 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="#####死锁   所谓死锁就是指多个进程因竞争资源而造成的一种僵局（互相等待），若无外力作用，这些进程都将无法向前推进。现实生活中简单的例子：交通阻塞，两股相向而行的车流都想通过已经被对方占用的道路（类似独木桥），结果双方都不能前进。死锁产生的必要条件：产生死锁必须同时满足以下四个条件，只要其中任意一条不成立，死锁就不会发生。 &amp;gt;1.互斥条件：进程要求对所分配的资源进行排他性控制，即在一段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="死锁">
+<meta property="og:url" content="http://yoursite.com/2017/08/04/死锁/index.html">
+<meta property="og:site_name" content="Gao Yizhao&#39;s blog">
+<meta property="og:description" content="#####死锁   所谓死锁就是指多个进程因竞争资源而造成的一种僵局（互相等待），若无外力作用，这些进程都将无法向前推进。现实生活中简单的例子：交通阻塞，两股相向而行的车流都想通过已经被对方占用的道路（类似独木桥），结果双方都不能前进。死锁产生的必要条件：产生死锁必须同时满足以下四个条件，只要其中任意一条不成立，死锁就不会发生。 &amp;gt;1.互斥条件：进程要求对所分配的资源进行排他性控制，即在一段">
+<meta property="og:image" content="http://yoursite.com/2017/08/04/死锁/1501813810219.png">
+<meta property="og:updated_time" content="2017-08-04T04:42:12.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="死锁">
+<meta name="twitter:description" content="#####死锁   所谓死锁就是指多个进程因竞争资源而造成的一种僵局（互相等待），若无外力作用，这些进程都将无法向前推进。现实生活中简单的例子：交通阻塞，两股相向而行的车流都想通过已经被对方占用的道路（类似独木桥），结果双方都不能前进。死锁产生的必要条件：产生死锁必须同时满足以下四个条件，只要其中任意一条不成立，死锁就不会发生。 &amp;gt;1.互斥条件：进程要求对所分配的资源进行排他性控制，即在一段">
+<meta name="twitter:image" content="http://yoursite.com/2017/08/04/死锁/1501813810219.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/08/04/死锁/"/>
+
+
+
+
+
+  <title>死锁 | Gao Yizhao's blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Gao Yizhao's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/04/死锁/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Yizhao's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">死锁</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-04T12:41:58+08:00">
+                2017-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>#####死锁<br>   所谓死锁就是指多个进程因竞争资源而造成的一种僵局（互相等待），若无外力作用，这些进程都将无法向前推进。现实生活中简单的例子：交通阻塞，两股相向而行的车流都想通过已经被对方占用的道路（类似独木桥），结果双方都不能前进。<br>死锁产生的必要条件：<br>产生死锁必须同时满足以下四个条件，只要其中任意一条不成立，死锁就不会发生。</p>
+<pre><code>&gt;1.互斥条件：进程要求对所分配的资源进行排他性控制，即在一段时间内某资源仅为一个进程所占有。此时，若有其他进程请求该资源，则请求进程只能等待。
+2.不可剥夺条件：进程所获得的资源在未使用完毕之前，不能被其他进程强行夺走，即只能由获得该进程的资源自己来释放。
+3.请求和保持条件：又称为部分分配条件。进程每次申请他所需要的一部分资源，在等待新资源的同时，进程继续占有已经分配到的资源。
+4.循环等待条件：存在一种进程资源的循环等待链，链中每个进程所获得的资源同会被链中的下一个进程所请求。即存在一个处于等待状态的进程集合{p1,p2,p3,...,pn},其中pi等待资源被pi+1占有，pn等待资源被p0占有。
+</code></pre><p><img src="./1501813810219.png" alt="Alt text"></p>
+<p>预防死锁的方法：<br>（1）打破互斥条件。即允许进程同时访问某些资源。但是有的资源是不能被同时访问的，比如打印机等等，这是有资源本身的属性所决定的。所以这种办法并无实用价值。<br>（2）打破不可剥夺条件。即允许进程强行从占有者那里夺取某些资源。即某进程已经占有了某些资源。它又申请新的资源。但不能立即被满足时，它必须释放所占有的全部资源，以后再重新申请。它所释放的资源可以分配给其他进程。这就相当于该进程占有的资源被隐蔽的强占了，这种预防死锁的方法实现起来困难，会降低系统性能。<br>（3）打破请求和保持条件。可以实行资源预先分配策略。即进程在运行前一次性的向系统申请它所需要的全部资源。如果某个进程所需要的全部资源得不到满足，则不分配任何资源，此进程暂不运行。只有当系统能够满足当前进程的全部资源需求时，才一次性将所申请的资源全部分配给该进程。由于运行的进程已占有了它所需的全部资源，所以不会发生占有资源又申请资源的情况。<br>（4）打破循环等待条件，实行资源有序分配策略。即把资源事先分类编号，按号分配，使进程在申请，占有资源时不会形成环路。所有进程对资源的请求必须严格按照资源序号递增的顺序提出。进程占用了小号资源，才能申请大号资源，就不会产生环路，从而预防了死锁。</p>
+<h6 id="避免死锁的方法："><a href="#避免死锁的方法：" class="headerlink" title="避免死锁的方法："></a>避免死锁的方法：</h6><p>   在资源的动态分配过程中，用某种方法避免进程进入不安全状态。银行家算法是著名的死锁避免算法。　　<br>　　所谓的银行家算法就是：一个银行家的借贷业务，必须保证其借贷人在一定时间内归还本金，以至于资金可以顺利周转，不至于倒闭。<br>　　在操作系统中，操作系统就相当于银行家，所有的资源就是他的本金。系统中有限的资源要供多个进程使用，必须保证得到资源的进程能在有限的时间内归还资源，以供其他进程使用资源。如果资源分配不到就会发生进程循环等待资源，则进程都无法继续执行下去的死锁现象。 </p>
+<h6 id="死锁的检测和解除："><a href="#死锁的检测和解除：" class="headerlink" title="死锁的检测和解除："></a>死锁的检测和解除：</h6><p>无须采取任何限制性措施，允许进程在运行过程中发生死锁，通过系统的检测机制及时的检测出死锁的发生，然后采取某种措施解除死锁。死锁的检测可以利用资源分配图来描述。死锁的解除主要方法如下：<br>    1）资源剥夺法。<br>    2）撤销进程法。<br>    3）进程回退法。</p>
+<p>简单的线程锁的实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">#include&lt;unistd.h&gt;</div><div class="line">#include&lt;stdlib.h&gt;</div><div class="line">#include&lt;sys/types.h&gt;</div><div class="line">#include&lt;pthread.h&gt;</div><div class="line"></div><div class="line">pthread_mutex_t mutex;</div><div class="line">pthread_t id1,id2;</div><div class="line">int i = 0;</div><div class="line"></div><div class="line">//必须使用多线程</div><div class="line"></div><div class="line">void *fun1(void *arg)</div><div class="line">&#123;</div><div class="line">	int count = 50000;</div><div class="line">	while(count--)</div><div class="line">	&#123;</div><div class="line">		pthread_mutex_lock(&amp;mutex);</div><div class="line">		i++;</div><div class="line">		pthread_mutex_unlock(&amp;mutex);</div><div class="line">	&#125;	</div><div class="line">&#125;</div><div class="line"></div><div class="line">void *fun2(void *arg)</div><div class="line">&#123;</div><div class="line">	int count = 50000;</div><div class="line">	while(count--)</div><div class="line">	&#123;</div><div class="line">		pthread_mutex_lock(&amp;mutex);</div><div class="line">		i++;</div><div class="line">		pthread_mutex_unlock(&amp;mutex);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">	pthread_create(&amp;id1,NULL,fun1,(void*)NULL);</div><div class="line">	pthread_create(&amp;id2,NULL,fun2,(void*)NULL);</div><div class="line">	</div><div class="line">	pthread_join(id1,NULL);</div><div class="line">	pthread_join(id2,NULL);</div><div class="line"></div><div class="line">	printf(&quot;i = %d\n&quot;,i);</div><div class="line">	return 0;</div><div class="line">	</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>验证i++是否为原子操作，设置CPU核数为2.达到两个线程并行，若不加锁i的终值始终无法达到10000，对（i++）使用互斥锁，可以达到10000。</p>
+<blockquote>
+<p>i++不是原子操作。<br>i++分为三个阶段<br>读取i值到寄存器<br>寄存器自增<br>写回内存</p>
+</blockquote>
+<p>这三个阶段的任何一步都可以中断分离.</p>
+<p>汇编：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	mov eax,dword ptr[i]</div><div class="line">	inc eax</div><div class="line">	mov dword[i],eax</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>此种情况下，必定不是原子操作，不加锁互斥是不行的。<br>假设加了优化参数，那么是否一定编译成为”inc dword ptr[i]”呢？答案是否定的，要看具体的编译器(不将i值写入寄存器而是直接操作内存)。<br>若在单核机器上，不加锁是inc dword ptr[i]是不会有问题的，但是在多核机器上，两个CPU同时执行inc指令，但是两条指令执行以后，却可能只出现自加一次的结果。<br>真正可以确保不额外加锁的汇编指令是”lock inc dword ptr[i]”，lock前缀可以暂时锁住总线，这时候其他CPU是无法访问响应数据的。但是目前没有任何一个编译器会将i++编译成这种形式。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/12/memmove-memcpy-strcpy函数详解/" rel="next" title="memmove,memcpy,strcpy函数详解">
+                <i class="fa fa-chevron-left"></i> memmove,memcpy,strcpy函数详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/1.jpg"
+               alt="John Doe" />
+          <p class="site-author-name" itemprop="name">John Doe</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">posts</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">tags</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#避免死锁的方法："><span class="nav-number">1.</span> <span class="nav-text">避免死锁的方法：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#死锁的检测和解除："><span class="nav-number">2.</span> <span class="nav-text">死锁的检测和解除：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
