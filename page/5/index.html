@@ -92,7 +92,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Gao Yizhao&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/archives/2017/05/index.html">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
 <meta property="og:site_name" content="Gao Yizhao&#39;s blog">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gao Yizhao&#39;s blog">
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2017/05/"/>
+  <link rel="canonical" href="http://yoursite.com/page/5/"/>
 
 
 
 
 
-  <title>Archiv | Gao Yizhao's blog</title>
+  <title>Gao Yizhao's blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="">
@@ -155,7 +155,9 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,70 +260,138 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
+  <section id="posts" class="posts-expand">
+    
+      
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  
 
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      Öhm..! Insgesamt 7 Artikel. Bleib dran.
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/16/可执行程序加载到内存的过程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gao Yizhao's blog">
     </span>
 
     
+      <header class="post-header">
 
-      
-      
-      
-
-      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/16/可执行程序加载到内存的过程/" itemprop="url">可执行程序加载到内存的过程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-16T21:30:49+08:00">
+                2017-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
         
-            <a class="post-title-link" href="/2017/05/26/内联函数/" itemprop="url">
-              
-                <span itemprop="name">内联函数</span>
-              
-            </a>
+          
+            <h4 id="可执行程序加载到内存的过程"><a href="#可执行程序加载到内存的过程" class="headerlink" title="可执行程序加载到内存的过程"></a>可执行程序加载到内存的过程</h4><p>在Linux中，程序的加载，涉及到两个工具，linker和loader。Linker主要涉及动态链接库的使用，Loader主要涉及软件加载。</p>
+<p>1、exec执行一个程序。</p>
+<p>2、elf是现在非常流行的可执行文件格式，其为程序运行规划了两个段：一个段是可执行的代码段，它是只读，可执行；另一个是数据段，它是可读写，不能执行。</p>
+<p>3、Loader会启动，通过mmap()系统调用，将代码段数据段映射到内存，即为其分配了虚拟内存，这时候不占用物理内存；只有当程序执行到相应的地方，内核才为其分配物理内存。</p>
+<p>4、Loader会去查找该程序依赖的链接库，首先该链接库是否被映射进内存中，未映射，则使用mmap，将代码段数据段映射到内存中；否则只是将其加入进程的地址空间。这样和glibc等库的内存地址空间完全一样。</p>
+<blockquote>
+<p>glibc是gnu发布的libc库，即c运行库。是linux系统中最底层的api，几乎其它任何运行库都会依赖于glibc。glibc除了封装linux操作系统所提供的系统服务外，它本身也提供了许多其它一些必要功能服务的实现。由于glibc囊括了几乎所有的UNIX通行的标准，可见其内容包罗万象。而就像其他的UNIX系统一样，其内含的档案群分散于系统的树状目录结构中，像一个支架一般撑起整个作业系统。</p>
+</blockquote>
+<p>因此，一个2M的程序，执行时，并不意味为其分配2M的物理内存，这与其运行的代码量，与其所依赖的动态链接库有关。</p>
+<p>运行过程中链接动态链接库 与 编译过程中链接动态链接库 区别</p>
+<p>调用动态链接库有两种方法：<br>一种是编译的时候，指明所依赖的动态链接库，这样loader可以在程序启动的时候，将所有的动态链接库映射到内存中；<br>一种是在运行过程中，通过dlopen和dlfree的方式加载动态链接库，动态将动态链接库加载到内存。</p>
+<p>这两种方式，从编程角度讲，第一种最方便，效率上差别不大，但在内存使用上有差别。</p>
+<p>第一种方式，一个库的代码，只要运行过一次，便会占用物理内存，之后即使再也不使用，也会占用物理内存（相当于扩大程序代码段），直到进程终止；<br>第二种方式，库代码占用的内存，可以通过dlfree的方式，释放掉，返回给物理内存。适用于偶尔而调用各种库的进程。</p>
+
+          
         
-      </h2>
+      
+    </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-26T18:51:39+08:00"
-              content="2017-05-26" >
-          05-26
-        </time>
-      </div>
+    <div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </article>
 
 
-
     
-
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2017/05/page/2/">2</a><a class="extend next" rel="next" href="/archives/2017/05/page/2/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
-
 
 
 
@@ -516,12 +586,6 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
-
 
   
 
